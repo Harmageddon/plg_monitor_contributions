@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="user" version="3.4" method="upgrade">
+	<name>PLG_MONITOR_CONTRIBUTIONS</name>
+	<author>Constantin Romankiewicz</author>
+	<creationDate>2015</creationDate>
+	<license>Apache License 2.0 (see LICENSE)</license>
+	<authorEmail>constantin@zweiiconkram.de</authorEmail>
+	<authorUrl>www.zweiiconkram.de</authorUrl>
+	<version>0.0.1</version>
+	<description>PLG_MONITOR_CONTRIBUTIONS_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="monitor_contributions">contributions.php</filename>
+	</files>
+</extension>
