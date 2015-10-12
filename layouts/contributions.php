@@ -6,7 +6,12 @@
  * @copyright   Copyright (C) 2015 Constantin Romankiewicz.
  * @license     Apache License 2.0; see LICENSE
  */
+
+/**
+ * @var  \Joomla\Registry\Registry  $displayData
+ */
 $params     = $displayData['params'];
+$item       = $displayData['item'];
 $dateFormat = $params->get('issue_date_format', JText::_('DATE_FORMAT_LC2'));
 ?>
 
@@ -66,6 +71,14 @@ $dateFormat = $params->get('issue_date_format', JText::_('DATE_FORMAT_LC2'));
 		<?php endforeach; ?>
 		</tbody>
 	</table>
+	<?php
+	if ($params->get('link_more_issues', 1))
+	{
+		$title = JText::sprintf('PLG_MONITORCONTRIBUTIONS_MORE_ISSUES_BY', $item->name);
+		echo JHtml::_('link', JRoute::_('index.php?option=com_monitor&view=issues&filter[author]=' . $item->user_id), $title);
+	}
+	?>
+
 <?php endif; ?>
 
 <h3>
@@ -85,7 +98,8 @@ $dateFormat = $params->get('issue_date_format', JText::_('DATE_FORMAT_LC2'));
 		<tr>
 			<td>
 				<?php
-				echo JHtml::_('link', JRoute::_('index.php?option=com_monitor&view=issue&id=' . $comment->issue_id), $comment->issue_title);
+				$link = 'index.php?option=com_monitor&view=issue&id=' . $comment->issue_id . '#comment-' . $comment->id;
+				echo JHtml::_('link', JRoute::_($link), $comment->issue_title);
 				?>
 			</td>
 			<td>
@@ -94,8 +108,35 @@ $dateFormat = $params->get('issue_date_format', JText::_('DATE_FORMAT_LC2'));
 			<td>
 				<?php echo JHtml::_('date', $comment->created, $dateFormat); ?>
 			</td>
+			<td>
+				<?php
+				$view = $params->get('project_link_to', '');
+
+				if ($view === 'project')
+				{
+					echo JHtml::_('link', JRoute::_('index.php?option=com_monitor&view=project&id=' . $comment->project_id), $comment->project_name);
+				}
+				elseif ($view === 'issues')
+				{
+					echo JHtml::_('link', JRoute::_('index.php?option=com_monitor&view=issues&project_id=' . $comment->project_id), $comment->project_name);
+				}
+				else
+				{
+					echo $comment->project_name;
+				}
+				?>
+			</td>
 		</tr>
 	<?php endforeach; ?>
 	</tbody>
-	<?php endif; ?>
 </table>
+<?php
+if ($params->get('link_more_comments', 1))
+{
+	$title = JText::sprintf('PLG_MONITORCONTRIBUTIONS_MORE_COMMENTS_BY', $item->name);
+	echo $title;
+
+	// TODO
+}
+?>
+<?php endif; ?>

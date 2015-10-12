@@ -75,7 +75,9 @@ class PlgContentMonitorContributions extends JPlugin
 			'author' => $item->user_id,
 		);
 		$list = array();
-		$displayData = array();
+		$displayData = array(
+			'item' => $item,
+		);
 		$list['fullordering'] = 'i.created DESC';
 		$displayData['issues'] = $modelIssue->getIssues($filters, $list);
 		$list['fullordering'] = 'c.created DESC';
