@@ -59,112 +59,29 @@ class PlgContentMonitorContributions extends JPlugin
 			return null;
 		}
 
+		JLoader::register('MonitorHelper', JPATH_ROOT . '/administrator/components/com_monitor/helper/helper.php');
+		JLoader::register('MonitorModelAbstract', JPATH_ROOT . '/administrator/components/com_monitor/model/abstract.php');
+		JLoader::register('MonitorModelComment', JPATH_ROOT . '/administrator/components/com_monitor/model/comment.php');
+		JLoader::register('MonitorModelIssue', JPATH_ROOT . '/administrator/components/com_monitor/model/issue.php');
+
+		$modelIssue = new MonitorModelIssue(null, false);
+		$modelComment = new MonitorModelComment(null, false);
+
 		// Load language files from the component.
 		$lang = JFactory::getLanguage();
 		$lang->load('com_monitor', JPATH_SITE . '/components/com_monitor');
 
-		// Get date format parameter from com_monitor.
-		$dateFormat = JComponentHelper::getParams('com_monitor')->get('issue_date_format', JText::_('DATE_FORMAT_LC2'));
+		$filters = array(
+			'author' => $item->user_id,
+		);
+		$list = array();
+		$displayData = array();
+		$list['fullordering'] = 'i.created DESC';
+		$displayData['issues'] = $modelIssue->getIssues($filters, $list);
+		$list['fullordering'] = 'c.created DESC';
+		$displayData['comments'] = $modelComment->getComments($filters, $list);
+		$displayData['params'] = $this->params->merge(JComponentHelper::getParams('com_monitor'));
 
-		// "Issues" block.
-		$html = '<h3>' . JText::_('COM_MONITOR_ISSUES') . '</h3>'
-			. '<div class="contact-issues">'
-			. ' <ul>';
-		$issues = $this->getIssues($item->user_id);
-
-		if (empty($issues))
-		{
-			$html .= '<li>' . JText::_('PLG_MONITORCONTRIBUTIONS_NO_ISSUES') . '</li>';
-		}
-		else
-		{
-			foreach ($issues as $issue)
-			{
-				$html .= '<li>';
-				$title = htmlspecialchars($issue->title, ENT_COMPAT, 'UTF-8');
-				$html .= JHtml::_('link', JRoute::_('index.php?option=com_monitor&view=issue&id=' . $issue->id), $title);
-				$html .= JHtml::_('date', $issue->created, $dateFormat);
-				$html .= '</li>';
-			}
-		}
-
-		$html .= '</ul>'
-			. '</div>';
-
-		// "Comments" block.
-		$html .= '<h3>' . JText::_('COM_MONITOR_COMMENTS') . '</h3>'
-			. '<div class="contact-comments">'
-			. ' <ul>';
-		$comments = $this->getComments($item->user_id);
-
-		if (empty($comments))
-		{
-			$html .= '<li>' . JText::_('PLG_MONITORCONTRIBUTIONS_NO_COMMENTS') . '</li>';
-		}
-		else
-		{
-			foreach ($comments as $comment)
-			{
-				$html .= '<li>';
-				$text = htmlspecialchars($comment->text, ENT_COMPAT, 'UTF-8');
-				$html .= JHtml::_('link', JRoute::_('index.php?option=com_monitor&view=issue&id=' . $comment->issue_id), $text);
-				$html .= JHtml::_('date', $comment->created, $dateFormat);
-				$html .= '</li>';
-			}
-		}
-
-		$html .= '</ul>'
-			. '</div>';
-
-		return $html;
-	}
-
-	/**
-	 * Loads a list of issues by the given author.
-	 *
-	 * @param   int  $author  User ID of the author.
-	 *
-	 * @return  mixed   A list of objects representing the issues or null if the query failed.
-	 */
-	private function getIssues($author)
-	{
-		$user = JFactory::getUser();
-
-		$query = $this->db->getQuery(true);
-		$query->select('i.id, i.title, i.created')
-			->from('#__monitor_issues AS i')
-			->where('i.author_id = ' . $query->q((int) $author))
-			->order('i.created DESC')
-			->leftJoin('#__monitor_issue_classifications AS cl ON i.classification = cl.id')
-			->where('cl.access IN (' . implode(',', $user->getAuthorisedViewLevels()) . ')');
-
-		$this->db->setQuery($query);
-
-		return $this->db->loadObjectList();
-	}
-
-	/**
-	 * Loads a list of comments by the given author.
-	 *
-	 * @param   int  $author  User ID of the author.
-	 *
-	 * @return  mixed   A list of objects representing the comments or null if the query failed.
-	 */
-	private function getComments($author)
-	{
-		$user = JFactory::getUser();
-
-		$query = $this->db->getQuery(true);
-		$query->select('c.id, c.text, c.created, c.issue_id, i.title AS issue_title')
-			->from('#__monitor_comments AS c')
-			->where('c.author_id = ' . $query->q((int) $author))
-			->order('c.created DESC')
-			->leftJoin('#__monitor_issues AS i ON c.issue_id = i.id')
-			->leftJoin('#__monitor_issue_classifications AS cl ON i.classification = cl.id')
-			->where('cl.access IN (' . implode(',', $user->getAuthorisedViewLevels()) . ')');
-
-		$this->db->setQuery($query);
-
-		return $this->db->loadObjectList();
+		return JLayoutHelper::render('contributions', $displayData, __DIR__ . '/layouts');
 	}
 }

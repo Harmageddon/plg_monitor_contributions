@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="plugin" group="content" version="3.4" method="upgrade">
+<extension type="plugin"
+	group="content"
+	version="3.4"
+	method="upgrade">
 	<name>PLG_MONITOR_CONTRIBUTIONS</name>
 	<author>Constantin Romankiewicz</author>
 	<creationDate>2015</creationDate>
@@ -11,4 +14,42 @@
 	<files>
 		<filename plugin="monitorcontributions">monitorcontributions.php</filename>
 	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="show_status_help"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					label="PLG_MONITOR_CONTRIBUTIONS_PARAM_SHOW_STATUS_HELP"
+					description="PLG_MONITOR_CONTRIBUTIONS_PARAM_SHOW_STATUS_HELP_DESC"
+					default="1"
+					>
+					<option value="1">JSHOW</option>
+					<option value="0">JHIDE</option>
+				</field>
+				<field
+					name="project_link_to"
+					type="radio"
+					class="btn-group"
+					label="PLG_MONITOR_CONTRIBUTIONS_PARAM_PROJECT_LINK_TO"
+					description="PLG_MONITOR_CONTRIBUTIONS_PARAM_PROJECT_LINK_TO_DESC"
+					default="1"
+					>
+					<option value="">PLG_MONITOR_CONTRIBUTIONS_PARAM_PROJECT_LINK_TO_NOTHING</option>
+					<option value="project">PLG_MONITOR_CONTRIBUTIONS_PARAM_PROJECT_LINK_TO_PROJECT</option>
+					<option value="issues">PLG_MONITOR_CONTRIBUTIONS_PARAM_PROJECT_LINK_TO_ISSUES</option>
+				</field>
+				<field
+					name="comment_text_length"
+					type="number"
+					label="PLG_MONITOR_CONTRIBUTIONS_PARAM_COMMENT_TEXT_LENGTH"
+					description="PLG_MONITOR_CONTRIBUTIONS_PARAM_COMMENT_TEXT_LENGTH_DESC"
+					default="100"
+					min="0"
+					step="5"
+					/>
+			</fieldset>
+		</fields>
+	</config>
 </extension>
