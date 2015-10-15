@@ -1,11 +1,12 @@
 <?php
 /**
  * @package     MonitorContributions
- * @subpackage  user
+ * @subpackage  content
  *
  * @copyright   Copyright (C) 2015 Constantin Romankiewicz.
  * @license     Apache License 2.0; see LICENSE
  */
+
 defined('_JEXEC') or die;
 
 /**
@@ -74,14 +75,19 @@ class PlgContentMonitorContributions extends JPlugin
 		$filters = array(
 			'author' => $item->user_id,
 		);
-		$list = array();
+		$listIssues = array(
+			'fullordering' => 'i.created DESC',
+			'limit' => $this->params->get('limit_issues', 10),
+		);
+		$listComments = array(
+			'fullordering' => 'c.created DESC',
+			'limit' => $this->params->get('limit_comments', 10),
+		);
 		$displayData = array(
 			'item' => $item,
 		);
-		$list['fullordering'] = 'i.created DESC';
-		$displayData['issues'] = $modelIssue->getIssues($filters, $list);
-		$list['fullordering'] = 'c.created DESC';
-		$displayData['comments'] = $modelComment->getComments($filters, $list);
+		$displayData['issues'] = $modelIssue->getIssues($filters, $listIssues);
+		$displayData['comments'] = $modelComment->getComments($filters, $listComments);
 		$displayData['params'] = $this->params->merge(JComponentHelper::getParams('com_monitor'));
 
 		return JLayoutHelper::render('contributions', $displayData, __DIR__ . '/layouts');

@@ -3,26 +3,45 @@
 	group="content"
 	version="3.4"
 	method="upgrade">
-	<name>PLG_MONITOR_CONTRIBUTIONS</name>
+	<name>PLG_CONTENT_MONITORCONTRIBUTIONS</name>
 	<author>Constantin Romankiewicz</author>
 	<creationDate>2015</creationDate>
 	<license>Apache License 2.0 (see LICENSE)</license>
 	<authorEmail>constantin@zweiiconkram.de</authorEmail>
 	<authorUrl>www.zweiiconkram.de</authorUrl>
 	<version>0.0.1</version>
-	<description>PLG_MONITOR_CONTRIBUTIONS_XML_DESCRIPTION</description>
+	<description>PLG_CONTENT_MONITORCONTRIBUTIONS_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="monitorcontributions">monitorcontributions.php</filename>
+		<folder plugin="monitorcontributions">layouts</folder>
 	</files>
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
 				<field
+					name="limit_issues"
+					type="limitbox"
+					class="input-mini"
+					default="10"
+					label="PLG_CONTENT_MONITORCONTRIBUTIONS_PARAM_LIMIT_ISSUES"
+					description="PLG_CONTENT_MONITORCONTRIBUTIONS_PARAM_LIMIT_ISSUES_DESC"
+					/>
+				<field
+					name="limit_comments"
+					type="limitbox"
+					class="input-mini"
+					default="10"
+					label="PLG_CONTENT_MONITORCONTRIBUTIONS_PARAM_LIMIT_COMMENTS"
+					description="PLG_CONTENT_MONITORCONTRIBUTIONS_PARAM_LIMIT_COMMENTS_DESC"
+					/>
+			</fieldset>
+			<fieldset name="advanced">
+				<field
 					name="show_status_help"
 					type="radio"
 					class="btn-group btn-group-yesno"
-					label="PLG_MONITOR_CONTRIBUTIONS_PARAM_SHOW_STATUS_HELP"
-					description="PLG_MONITOR_CONTRIBUTIONS_PARAM_SHOW_STATUS_HELP_DESC"
+					label="PLG_CONTENT_MONITORCONTRIBUTIONS_PARAM_SHOW_STATUS_HELP"
+					description="PLG_CONTENT_MONITORCONTRIBUTIONS_PARAM_SHOW_STATUS_HELP_DESC"
 					default="1"
 					>
 					<option value="1">JSHOW</option>
@@ -32,19 +51,19 @@
 					name="project_link_to"
 					type="radio"
 					class="btn-group"
-					label="PLG_MONITOR_CONTRIBUTIONS_PARAM_PROJECT_LINK_TO"
-					description="PLG_MONITOR_CONTRIBUTIONS_PARAM_PROJECT_LINK_TO_DESC"
+					label="PLG_CONTENT_MONITORCONTRIBUTIONS_PARAM_PROJECT_LINK_TO"
+					description="PLG_CONTENT_MONITORCONTRIBUTIONS_PARAM_PROJECT_LINK_TO_DESC"
 					default="1"
 					>
-					<option value="">PLG_MONITOR_CONTRIBUTIONS_PARAM_PROJECT_LINK_TO_NOTHING</option>
-					<option value="project">PLG_MONITOR_CONTRIBUTIONS_PARAM_PROJECT_LINK_TO_PROJECT</option>
-					<option value="issues">PLG_MONITOR_CONTRIBUTIONS_PARAM_PROJECT_LINK_TO_ISSUES</option>
+					<option value="">PLG_CONTENT_MONITORCONTRIBUTIONS_PARAM_PROJECT_LINK_TO_NOTHING</option>
+					<option value="project">PLG_CONTENT_MONITORCONTRIBUTIONS_PARAM_PROJECT_LINK_TO_PROJECT</option>
+					<option value="issues">PLG_CONTENT_MONITORCONTRIBUTIONS_PARAM_PROJECT_LINK_TO_ISSUES</option>
 				</field>
 				<field
 					name="comment_text_length"
 					type="number"
-					label="PLG_MONITOR_CONTRIBUTIONS_PARAM_COMMENT_TEXT_LENGTH"
-					description="PLG_MONITOR_CONTRIBUTIONS_PARAM_COMMENT_TEXT_LENGTH_DESC"
+					label="PLG_CONTENT_MONITORCONTRIBUTIONS_PARAM_COMMENT_TEXT_LENGTH"
+					description="PLG_CONTENT_MONITORCONTRIBUTIONS_PARAM_COMMENT_TEXT_LENGTH_DESC"
 					default="100"
 					min="0"
 					step="5"

@@ -1,11 +1,13 @@
 <?php
 /**
  * @package     MonitorContributions
- * @subpackage  user
+ * @subpackage  content
  *
  * @copyright   Copyright (C) 2015 Constantin Romankiewicz.
  * @license     Apache License 2.0; see LICENSE
  */
+
+defined('_JEXEC') or die;
 
 /**
  * @var  \Joomla\Registry\Registry  $displayData
@@ -20,7 +22,7 @@ $dateFormat = $params->get('issue_date_format', JText::_('DATE_FORMAT_LC2'));
 </h3>
 <?php if (empty($displayData['issues'])) : ?>
 	<div class="contact-issues no-issues muted">
-		<?php echo JText::_('PLG_MONITORCONTRIBUTIONS_NO_ISSUES'); ?>
+		<?php echo JText::_('PLG_CONTENT_MONITORCONTRIBUTIONS_NO_ISSUES'); ?>
 	</div>
 <?php else : ?>
 	<table class="contact-issues table table-striped">
@@ -74,7 +76,7 @@ $dateFormat = $params->get('issue_date_format', JText::_('DATE_FORMAT_LC2'));
 	<?php
 	if ($params->get('link_more_issues', 1))
 	{
-		$title = JText::sprintf('PLG_MONITORCONTRIBUTIONS_MORE_ISSUES_BY', $item->name);
+		$title = JText::sprintf('PLG_CONTENT_MONITORCONTRIBUTIONS_MORE_ISSUES_BY', $item->name);
 		echo JHtml::_('link', JRoute::_('index.php?option=com_monitor&view=issues&filter[author]=' . $item->user_id), $title);
 	}
 	?>
@@ -86,7 +88,7 @@ $dateFormat = $params->get('issue_date_format', JText::_('DATE_FORMAT_LC2'));
 </h3>
 <?php if (empty($displayData['comments'])) : ?>
 	<div class="contact-comments no-comments muted">
-		<?php echo JText::_('PLG_MONITORCONTRIBUTIONS_NO_COMMENTS'); ?>
+		<?php echo JText::_('PLG_CONTENT_MONITORCONTRIBUTIONS_NO_COMMENTS'); ?>
 	</div>
 <?php else : ?>
 <table class="contact-comments table table-striped">
@@ -133,7 +135,7 @@ $dateFormat = $params->get('issue_date_format', JText::_('DATE_FORMAT_LC2'));
 <?php
 if ($params->get('link_more_comments', 1))
 {
-	$title = JText::sprintf('PLG_MONITORCONTRIBUTIONS_MORE_COMMENTS_BY', $item->name);
+	$title = JText::sprintf('PLG_CONTENT_MONITORCONTRIBUTIONS_MORE_COMMENTS_BY', $item->name);
 	echo $title;
 
 	// TODO
