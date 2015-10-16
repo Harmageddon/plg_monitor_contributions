@@ -71,4 +71,11 @@
 			</fieldset>
 		</fields>
 	</config>
+
+	<languages folder="language">
+		<language tag="de-DE">de-DE/de-DE.plg_content_monitorcontributions.ini</language>
+		<language tag="de-DE">de-DE/de-DE.plg_content_monitorcontributions.sys.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_content_monitorcontributions.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_content_monitorcontributions.sys.ini</language>
+	</languages>
 </extension>
