@@ -83,11 +83,25 @@ class PlgContentMonitorContributions extends JPlugin
 			'fullordering' => 'c.created DESC',
 			'limit' => $this->params->get('limit_comments', 10),
 		);
+		$comments = $modelComment->getComments($filters, $listComments);
+
+		// Process the content plugins on comments.
+		$dispatcher	= JEventDispatcher::getInstance();
+		JPluginHelper::importPlugin('content');
+
+		if ($comments)
+		{
+			foreach ($comments as $comment)
+			{
+				$dispatcher->trigger('onContentPrepare', array('plg_monitorcontributions.comment', &$comment, &$this->params, 0));
+			}
+		}
+
 		$displayData = array(
 			'item' => $item,
 		);
 		$displayData['issues'] = $modelIssue->getIssues($filters, $listIssues);
-		$displayData['comments'] = $modelComment->getComments($filters, $listComments);
+		$displayData['comments'] = $comments;
 		$displayData['params'] = $this->params->merge(JComponentHelper::getParams('com_monitor'));
 
 		return JLayoutHelper::render('contributions', $displayData, __DIR__ . '/layouts');
