@@ -25,9 +25,14 @@ $dateFormat = $params->get('issue_date_format', JText::_('DATE_FORMAT_LC2'));
 		<?php echo JText::_('PLG_CONTENT_MONITORCONTRIBUTIONS_NO_ISSUES'); ?>
 	</div>
 <?php else : ?>
-	<table class="contact-issues table table-striped">
+	<table class="contact-issues table table-striped table-hover">
 		<thead>
-
+		<tr>
+			<th><?php echo JText::_('COM_MONITOR_ISSUE_TITLE'); ?></th>
+			<th><?php echo JText::_('COM_MONITOR_STATUS'); ?></th>
+			<th><?php echo JText::_('COM_MONITOR_CREATE_DATE'); ?></th>
+			<th><?php echo JText::_('COM_MONITOR_PROJECT_NAME'); ?></th>
+		</tr>
 		</thead>
 		<tbody>
 		<?php foreach ($displayData['issues'] as $issue) : ?>
@@ -91,9 +96,14 @@ $dateFormat = $params->get('issue_date_format', JText::_('DATE_FORMAT_LC2'));
 		<?php echo JText::_('PLG_CONTENT_MONITORCONTRIBUTIONS_NO_COMMENTS'); ?>
 	</div>
 <?php else : ?>
-<table class="contact-comments table table-striped">
+<table class="contact-comments table table-striped table-hover">
 	<thead>
-
+	<tr>
+		<th><?php echo JText::_('COM_MONITOR_ISSUE'); ?></th>
+		<th><?php echo JText::_('COM_MONITOR_COMMENT_TEXT'); ?></th>
+		<th><?php echo JText::_('COM_MONITOR_CREATE_DATE'); ?></th>
+		<th><?php echo JText::_('COM_MONITOR_PROJECT_NAME'); ?></th>
+	</tr>
 	</thead>
 	<tbody>
 	<?php foreach ($displayData['comments'] as $comment) : ?>
