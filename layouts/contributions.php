@@ -146,9 +146,7 @@ $dateFormat = $params->get('issue_date_format', JText::_('DATE_FORMAT_LC2'));
 if ($params->get('link_more_comments', 1))
 {
 	$title = JText::sprintf('PLG_CONTENT_MONITORCONTRIBUTIONS_MORE_COMMENTS_BY', $item->name);
-	echo $title;
-
-	// TODO
+	echo JHtml::_('link', JRoute::_('index.php?option=com_monitor&view=comments&filter[author]=' . $item->user_id), $title);
 }
 ?>
 <?php endif; ?>
